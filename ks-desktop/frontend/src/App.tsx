@@ -1,39 +1,28 @@
-import { useState } from "react";
-import logo from "./assets/images/logo-universal.png";
-import { Greet } from "../wailsjs/go/main/App";
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from "@/components/ui/resizable";
+// import { Greet } from "../wailsjs/go/main/App";
 
 function App() {
-  const [resultText, setResultText] = useState(
-    "Please enter your name below 👇",
-  );
-  const [name, setName] = useState("");
-  const updateName = (e: any) => setName(e.target.value);
-  const updateResultText = (result: string) => setResultText(result);
-
-  function greet() {
-    Greet(name).then(updateResultText);
-  }
-
   return (
-    <div id="App">
-      <img src={logo} id="logo" alt="logo" />
-      <div id="result" className="result">
-        {resultText}
-      </div>
-      <div id="input" className="input-box">
-        <input
-          id="name"
-          className="input"
-          onChange={updateName}
-          autoComplete="off"
-          name="input"
-          type="text"
-        />
-        <button className="btn" onClick={greet}>
-          Greet
-        </button>
-      </div>
-    </div>
+    <ResizablePanelGroup
+      direction="horizontal"
+      className="w-full rounded-lg border min-h-screen"
+    >
+      <ResizablePanel defaultSize={40} className="min-w-1/5 h-full">
+        <div className="flex p-6">
+          <span className="font-semibold">Sidebar</span>
+        </div>
+      </ResizablePanel>
+      <ResizableHandle withHandle />
+      <ResizablePanel defaultSize={60} className="min-w-1/2 h-full">
+        <div className="flex p-6">
+          <span className="font-semibold">Content</span>
+        </div>
+      </ResizablePanel>
+    </ResizablePanelGroup>
   );
 }
 
